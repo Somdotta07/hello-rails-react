@@ -1,4 +1,6 @@
-import { createStore } from "redux"
+import { applyMiddleware, createStore } from "redux";
+import thunk from "redux-thunk";
+import { GET_THINGS_SUCCESS } from "./components/HelloWorld";
 
 const inititalState = {
   greetings: [
@@ -9,14 +11,16 @@ const inititalState = {
 };
 
 function rootReducer(state, action) {
-    console.log(action.type);
-    switch (action.type) {
-        default:
-            return state
-    }
+  console.log(action.type);
+  switch (action.type) {
+    case GET_THINGS_SUCCESS:
+      return { greetings: action.json.greetings };
+  }
+  return state;
 }
 
 export default function configureStore() {
-    const store = createStore(rootReducer, inititalState);
+    const store = createStore(rootReducer, inititalState,
+    applyMiddleware(thunk));
     return store;
 }

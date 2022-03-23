@@ -2,8 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { List } from "semantic-ui-react";
 
-export const GET_THINGS_REQUEST = 'GET_THINGS_REQUEST';
+export const GET_THINGS_REQUEST = "GET_THINGS_REQUEST";
 export const GET_THINGS_SUCCESS = "GET_THINGS_SUCCESS";
 
 function getThings() {
@@ -15,12 +16,40 @@ function getThings() {
       .catch((error) => console.log(`Fetching Error ${error}`));
   };
 }
+
+export function getThingsSuccess(json) {
+  return {
+    type: GET_THINGS_SUCCESS,
+    json,
+  };
+}
+
 class HelloWorld extends React.Component {
-  render () {
+  render() {
+    const { greetings } = this.props;
+    const thingsList = [greetings].map((greeting) => {
+      return (
+        <List.Item >
+          <List.Icon />
+          <List.Content>
+          <p>Greeting</p>
+            <List.Header as="a">{greeting.name}</List.Header>
+            <br />
+          </List.Content>
+        </List.Item>
+      );
+    });
     return (
       <React.Fragment>
-        Greeting: {this.props.greeting}
-        <button className="getThingsBtn" onClick={() => this.props.getThings()}>getThings</button>
+        <div>
+          <button
+            onClick={() => this.props.getThings()}
+          >
+            Click To Change Greeting
+          </button>
+          <br />
+          <ul>{thingsList}</ul>
+        </div>
       </React.Fragment>
     );
   }

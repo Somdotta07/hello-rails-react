@@ -1,6 +1,8 @@
-import { applyMiddleware, createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { GET_THINGS_SUCCESS } from "./components/HelloWorld";
+import { composeWithDevTools } from "redux-devtools-extension";
+
 
 const inititalState = {
   greetings: [
@@ -20,7 +22,10 @@ function rootReducer(state, action) {
 }
 
 export default function configureStore() {
-    const store = createStore(rootReducer, inititalState,
-    applyMiddleware(thunk));
-    return store;
+  const store = createStore(
+    rootReducer,
+    inititalState,
+    composeWithDevTools(applyMiddleware(thunk))
+  );
+  return store;
 }

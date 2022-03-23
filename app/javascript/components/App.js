@@ -1,23 +1,21 @@
-import React from "react"
+import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
-import HelloWorld from './HelloWorld'
+import HelloWorld from "./HelloWorld";
 import configureStore from "../configureStore";
-
 const store = configureStore();
-
 class App extends React.Component {
-  render () {
+  render() {
     return (
-     <Provider store={store}>
+      <Provider store={store}>
         <Router>
           <Routes>
-            <Route path="/hello" render={() => <HelloWorld greeting="Friend" />} />
+            <Route path="/" element={<HelloWorld/>} />
           </Routes>
         </Router>
-     </Provider>
+      </Provider>
     );
   }
 }
 
-export default App
+export default App;
